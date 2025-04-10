@@ -84,4 +84,3 @@ def update():
     afterid = t.after(600000, deletetemp) #1초=1000, 10분=600초, 600초=600000
 update()
 t.mainloop()
-print("test")
