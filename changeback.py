@@ -50,17 +50,6 @@ except: pass
 def deletetemp():
     os.system("del temp.jpg")
     update()
-def nowtime():
-    img = Image.open("cloud.jpg")
-    d = ImageDraw.Draw(img)
-    now = datetime.datetime.now()
-    time_str = now.strftime("%H:%M:%S")
-    date_str = now.strftime("%Y/%m/%d")
-    fnt1 = ImageFont.truetype("Cafe24Ohsquare-v2.0.otf", 70)
-    d.text((1520,400), f"{date_str}\n{time_str}", font=fnt1, fill=(0,0,0))
-    img.save('temp.jpg')
-    ctypes.windll.user32.SystemParametersInfoW(20, 0, f"{current_dir}\\temp1.jpg" , 3)
-    t.after(900,nowtime)
 def update():
     try:
         t.after_cancel(afterid)
@@ -77,19 +66,21 @@ def update():
     tt = tt.strip("]")
     tt = " " + tt
     tt = tt.replace(",","\n")
-    img = Image.open("temp.jpg")
+    img = Image.open("cloud.jpg")
     d = ImageDraw.Draw(img)
     fnt1 = ImageFont.truetype("Cafe24Ohsquare-v2.0.otf", 70)
+    now = datetime.datetime.now()
+    time_str = now.strftime("%H:%M:%S")
+    date_str = now.strftime("%Y/%m/%d")
     d.text((1520,400), tt, font=fnt1, fill=(0,0,0))
-    d.text((1520,1050), f"기준 : {scl} {grd}학년 {cls}반", font=fnt1, fill=(0,0,0))
-    img.save('temp1.jpg')
+    d.text((1520,1050), f"기준 : {scl} {grd}학년 {cls}반\n         {date_str}\n           {time_str}", font=fnt1, fill=(0,0,0))
+    img.save('temp.jpg')
     reg_path = r"Control Panel\Desktop"
     key = reg.OpenKey(reg.HKEY_CURRENT_USER, reg_path, 0, reg.KEY_WRITE)
-    reg.SetValueEx(key, "WallpaperStyle", 0, reg.REG_SZ, "2")
+    reg.SetValueEx(key, "WallpaperStyle", 0, reg.REG_SZ, "0")
     reg.SetValueEx(key, "TileWallpaper", 0, reg.REG_SZ, "0")
     key.Close()
-    ctypes.windll.user32.SystemParametersInfoW(20, 0, f"{current_dir}\\temp1.jpg" , 3)
+    ctypes.windll.user32.SystemParametersInfoW(20, 0, f"{current_dir}\\temp.jpg" , 3)
     afterid = t.after(600000, deletetemp) #1초=1000, 10분=600초, 600초=600000
-nowtime()
 update()
 t.mainloop()
