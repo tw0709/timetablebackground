@@ -84,3 +84,4 @@ def update():
     afterid = t.after(600000, deletetemp) #1초=1000, 10분=600초, 600초=600000
 update()
 t.mainloop()
+#2025학년도 10102 강태웅이 만들었습니다.
