@@ -81,6 +81,6 @@ def update():
     reg.SetValueEx(key, "TileWallpaper", 0, reg.REG_SZ, "0")
     key.Close()
     ctypes.windll.user32.SystemParametersInfoW(20, 0, f"{current_dir}\\temp.jpg" , 3)
-    afterid = t.after(600000, deletetemp) #1초=1000, 10분=600초, 600초=600000
+    afterid = t.after(1000, deletetemp) #1초=1000, 10분=600초, 600초=600000
 update()
 t.mainloop()
